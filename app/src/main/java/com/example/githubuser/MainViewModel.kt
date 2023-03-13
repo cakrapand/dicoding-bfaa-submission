@@ -1,7 +1,6 @@
 package com.example.githubuser
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,27 +14,51 @@ class MainViewModel : ViewModel() {
         private const val TAG = "MainViewModel"
     }
 
-    private val _listUser = MutableLiveData<List<User>>()
-    val listUser : LiveData<List<User>>
-        get() =_listUser
+    private val _listUsers = MutableLiveData<List<User>>()
+    val listUsers : LiveData<List<User>>
+        get() =_listUsers
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading : LiveData<Boolean>
+        get() =_isLoading
 
     init {
-        getAllUsers()
+        getUsers()
     }
 
-    private fun getAllUsers(){
-        val client = ApiConfig.getApiService().getAllUsers()
+    private fun getUsers(){
+        val client = ApiConfig.getApiService().getUsers()
         client.enqueue(object: Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                _isLoading.value = false
                 if(response.isSuccessful && response.body() != null){
-                    _listUser.value = response.body()
+                    _listUsers.value = response.body()
                 }else{
-                    Log.e(TAG, "onResponse: ${response.message()}")
+                    Log.e(TAG, "onResponse: ${response}")
                 }
             }
-
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message}")
+            }
+        })
+    }
+
+    fun searchUser(query: String){
+        _isLoading.value = true
+        val client = ApiConfig.getApiService().searchUsers(query)
+        client.enqueue(object: Callback<SearchResponse> {
+            override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
+                _isLoading.value = false
+                if(response.isSuccessful && response.body() != null){
+                    _listUsers.value = response.body()!!.items
+                }else{
+                    Log.e(MainViewModel.TAG, "onResponse: ${response}")
+                }
+            }
+            override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+                _isLoading.value = false
+                Log.e(MainViewModel.TAG, "onFailure: ${t.message}")
             }
         })
     }

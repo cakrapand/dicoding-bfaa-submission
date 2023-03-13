@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.githubuser.databinding.ItemUserBinding
 
-class UserAdapter(private val listUser: List<User>, private val onClick: (User) -> Unit) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class UserAdapter(private val listUser: List<User>, private val onClick: (User) -> Unit = {}) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     class ViewHolder(var binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
 
