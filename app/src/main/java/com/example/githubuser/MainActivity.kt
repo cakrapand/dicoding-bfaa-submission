@@ -7,9 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.annotation.StringRes
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,9 +29,6 @@ class MainActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.listUserMain.layoutManager = layoutManager
-
-        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
-        binding.listUserMain.addItemDecoration(itemDecoration)
 
         mainViewModel.listUsers.observe(this){ listUser ->
             binding.listUserMain.adapter = UserAdapter(listUser){ user ->
@@ -68,12 +63,6 @@ class MainActivity : AppCompatActivity() {
             }
             override fun onQueryTextChange(newText: String?): Boolean {
                 return false
-            }
-        })
-
-        searchView.setOnCloseListener(object: SearchView.OnCloseListener{
-            override fun onClose(): Boolean {
-                return true
             }
         })
         return true

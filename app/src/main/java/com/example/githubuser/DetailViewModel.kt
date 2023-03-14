@@ -68,10 +68,11 @@ class DetailViewModel() : ViewModel() {
     }
 
     fun getUserFollower(login: String){
+        _isLoadingFollow.value = true
         val client = ApiConfig.getApiService().getUserFollowers(login)
         client.enqueue(object: Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
-                _isLoading.value = false
+                _isLoadingFollow.value = false
                 if(response.isSuccessful && response.body() != null){
                     _userFollower.value = response.body()
                 }else{
@@ -79,17 +80,18 @@ class DetailViewModel() : ViewModel() {
                 }
             }
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                _isLoading.value = false
+                _isLoadingFollow.value = false
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })
     }
 
     fun getUserFollowing(login: String){
+        _isLoadingFollow.value = true
         val client = ApiConfig.getApiService().getUserFollowing(login)
         client.enqueue(object: Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
-                _isLoading.value = false
+                _isLoadingFollow.value = false
                 if(response.isSuccessful && response.body() != null){
                     _userFollowing.value = response.body()
                 }else{
@@ -97,7 +99,7 @@ class DetailViewModel() : ViewModel() {
                 }
             }
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                _isLoading.value = false
+                _isLoadingFollow.value = false
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })
