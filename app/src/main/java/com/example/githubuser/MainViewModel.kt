@@ -23,28 +23,10 @@ class MainViewModel : ViewModel() {
         get() =_isLoading
 
     init {
-        getUsers()
+        searchUser()
     }
 
-    private fun getUsers(){
-        val client = ApiConfig.getApiService().getUsers()
-        client.enqueue(object: Callback<List<User>> {
-            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
-                _isLoading.value = false
-                if(response.isSuccessful && response.body() != null){
-                    _listUsers.value = response.body()
-                }else{
-                    Log.e(TAG, "onResponse: ${response}")
-                }
-            }
-            override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message}")
-            }
-        })
-    }
-
-    fun searchUser(query: String){
+    fun searchUser(query: String = "a"){
         _isLoading.value = true
         val client = ApiConfig.getApiService().searchUsers(query)
         client.enqueue(object: Callback<SearchResponse> {

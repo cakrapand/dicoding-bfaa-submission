@@ -3,14 +3,10 @@ package com.example.githubuser
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.githubuser.databinding.ActivityDetailBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -35,11 +31,7 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        val layoutManager = LinearLayoutManager(this)
-//        binding.listUserDetail.layoutManager = layoutManager
-//
-//        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
-//        binding.listUserDetail.addItemDecoration(itemDecoration)
+        supportActionBar?.hide()
 
         val user = if (Build.VERSION.SDK_INT >= 33) {
             intent.getParcelableExtra<User>(EXTRA_USER)
@@ -48,28 +40,25 @@ class DetailActivity : AppCompatActivity() {
             intent.getParcelableExtra<User>(EXTRA_USER)
         }
 
+
         if (user != null && detailViewModel.userDetail.value == null){
             detailViewModel.getUser(user.login)
         }
 
         detailViewModel.userDetail.observe(this){
+            Log.i(TAG, "onCreate: ${user?.login}")
             Glide.with(this)
                 .load(it.avatar_url)
-                .into(binding.gambar)
-            binding.username.text = it.name
-            binding.follower.text = it.followers.toString()
-            binding.following.text = it.following.toString()
+                .into(binding.imgAvatar)
+            binding.tvUsername.text = it.login
+            binding.tvNama.text = it.name
+            binding.tvFollower.text = it.followers.toString()
+            binding.tvFollowing.text =it.following.toString()
         }
 
         detailViewModel.isLoading.observe(this){
             showLoading(it)
         }
-
-//        detailViewModel.userFollower.observe(this){
-//            binding.listUserDetail.adapter = UserAdapter(it)
-//        }
-
-
 
         val sectionPagerAdapter = SectionPagerAdapter(this)
         binding.viewPager.adapter = sectionPagerAdapter

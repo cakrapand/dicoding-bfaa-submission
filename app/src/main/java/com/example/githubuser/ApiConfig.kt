@@ -1,21 +1,23 @@
 package com.example.githubuser
 
 import androidx.viewbinding.BuildConfig
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 class ApiConfig {
     companion object{
         fun getApiService(): ApiService{
-            val loggingInterceptor = if(BuildConfig.DEBUG){
-                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-            }else{
-                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+            val authInterceptor = Interceptor { chain ->
+                val req = chain.request()
+                val requestHeaders = req.newBuilder()
+                    .addHeader("Authorization", "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")
+                    .build()
+                chain.proceed(requestHeaders)
             }
-            val client = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
+            val client = OkHttpClient.Builder().addInterceptor(authInterceptor).build()
             val retrofit = Retrofit.Builder()
                 .baseUrl("https://api.github.com/")
                 .addConverterFactory(GsonConverterFactory.create())

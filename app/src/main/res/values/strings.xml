@@ -3,6 +3,7 @@
     <string name="search">Search</string>
     <string name="search_hint">Masukan username</string>
     <string name="follower">Follower</string>
+    <string name="dummy_value">$735</string>
     <string name="following">Following</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
