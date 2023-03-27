@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 
-class Splash : AppCompatActivity() {
+class SplashAcitivty : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -14,7 +14,7 @@ class Splash : AppCompatActivity() {
         supportActionBar?.hide()
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this@Splash, MainActivity::class.java))
+            startActivity(Intent(this@SplashAcitivty, MainActivity::class.java))
             finish()
         }, 2000)
     }

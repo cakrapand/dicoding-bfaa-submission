@@ -8,11 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailViewModel() : ViewModel() {
-
-    private val _user = MutableLiveData<User>()
-    val user : LiveData<User>
-        get() =_user
+class DetailViewModel : ViewModel() {
 
     private val _userDetail = MutableLiveData<UserDetail>()
     val userDetail : LiveData<UserDetail>
@@ -34,13 +30,9 @@ class DetailViewModel() : ViewModel() {
     val isLoadingFollow : LiveData<Boolean>
         get() =_isLoadingFollow
 
-    companion object{
-        private const val TAG = "DetailViewModel"
-    }
-
-    init {
-
-    }
+    private val _isError = MutableLiveData<Event<Boolean>>()
+    val isError : LiveData<Event<Boolean>>
+        get() =_isError
 
     fun getUser(login: String){
         getUserDetail(login)
@@ -48,60 +40,73 @@ class DetailViewModel() : ViewModel() {
         getUserFollowing(login)
     }
 
-    fun getUserDetail(login: String){
+    private fun getUserDetail(login: String){
         _isLoading.value = true
         val client = ApiConfig.getApiService().getUserDetail(login)
         client.enqueue(object: Callback<UserDetail> {
             override fun onResponse(call: Call<UserDetail>, response: Response<UserDetail>) {
                 _isLoading.value = false
                 if(response.isSuccessful && response.body() != null){
+                    _isError.value = Event(false)
                     _userDetail.value = response.body()
                 }else{
-                    Log.e(TAG, "onResponse: ${response}")
+                    _isError.value = Event(true)
+                    Log.e(TAG, "onResponse: $response")
                 }
             }
             override fun onFailure(call: Call<UserDetail>, t: Throwable) {
+                _isError.value = Event(true)
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })
     }
 
-    fun getUserFollower(login: String){
+    private fun getUserFollower(login: String){
         _isLoadingFollow.value = true
         val client = ApiConfig.getApiService().getUserFollowers(login)
         client.enqueue(object: Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                 _isLoadingFollow.value = false
                 if(response.isSuccessful && response.body() != null){
+                    _isError.value = Event(false)
                     _userFollower.value = response.body()
                 }else{
-                    Log.e(TAG, "onResponse: ${response}")
+                    _isError.value = Event(true)
+                    Log.e(TAG, "onResponse: $response")
                 }
             }
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
                 _isLoadingFollow.value = false
+                _isError.value = Event(true)
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })
     }
 
-    fun getUserFollowing(login: String){
+    private fun getUserFollowing(login: String){
         _isLoadingFollow.value = true
         val client = ApiConfig.getApiService().getUserFollowing(login)
         client.enqueue(object: Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                 _isLoadingFollow.value = false
                 if(response.isSuccessful && response.body() != null){
+                    _isError.value = Event(false)
                     _userFollowing.value = response.body()
                 }else{
-                    Log.e(TAG, "onResponse: ${response}")
+                    _isError.value = Event(true)
+                    Log.e(TAG, "onResponse: $response")
                 }
             }
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
                 _isLoadingFollow.value = false
+                _isError.value = Event(true)
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })
+    }
+
+    companion object{
+        private const val TAG = "DetailViewModel"
     }
 }

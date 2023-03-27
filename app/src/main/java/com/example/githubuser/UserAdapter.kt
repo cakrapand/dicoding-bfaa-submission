@@ -10,14 +10,14 @@ class UserAdapter(private val listUser: List<User>, private val onClick: (User) 
 
     class ViewHolder(var binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = UserAdapter.ViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.tvUsername.text = listUser[holder.adapterPosition].login
         Glide.with(holder.itemView)
-            .load(listUser[holder.adapterPosition].avatar_url)
+            .load(listUser[holder.adapterPosition].avatarUrl)
             .into(holder.binding.imgItemPhoto)
 
         holder.itemView.setOnClickListener{

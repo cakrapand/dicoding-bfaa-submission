@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/background"
+    android:orientation="vertical"
     tools:context=".FollowFragment">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -21,7 +21,9 @@
             android:id="@+id/tv_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/img_avatar"
             app:layout_constraintStart_toStartOf="@+id/img_avatar"
             app:layout_constraintTop_toBottomOf="@+id/img_avatar"
@@ -31,7 +33,8 @@
             android:id="@+id/tv_nama"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="@+id/img_avatar"
             app:layout_constraintStart_toStartOf="@+id/img_avatar"
             app:layout_constraintTop_toBottomOf="@+id/tv_username"
@@ -39,53 +42,52 @@
 
         <TextView
             android:id="@+id/tv_following"
-            android:layout_width="wrap_content"
+            android:layout_width="88dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tv_follower"
             app:layout_constraintTop_toBottomOf="@+id/tv_nama"
-            tools:text="100ing" />
+            tools:text="100 Following" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/follower"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="@string/follower"-->
+        <!--            app:layout_constraintEnd_toEndOf="@+id/tv_follower"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/tv_follower"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tv_follower" />-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/following"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="@string/following"-->
+        <!--            app:layout_constraintEnd_toEndOf="@+id/tv_following"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/tv_following"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tv_following" />-->
 
         <TextView
             android:id="@+id/tv_follower"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toStartOf="@+id/tv_following"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_nama"
-            tools:text="100er" />
-
-        <TextView
-            android:id="@+id/follower"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/follower"
-            app:layout_constraintEnd_toEndOf="@+id/tv_follower"
-            app:layout_constraintStart_toStartOf="@+id/tv_follower"
-            app:layout_constraintTop_toBottomOf="@+id/tv_follower" />
-
-        <TextView
-            android:id="@+id/following"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/following"
-            app:layout_constraintEnd_toEndOf="@+id/tv_following"
-            app:layout_constraintStart_toStartOf="@+id/tv_following"
-            app:layout_constraintTop_toBottomOf="@+id/tv_following" />
+            tools:text="100 Follower" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:background="?attr/colorPrimary"
-            app:layout_constraintEnd_toEndOf="@+id/following"
-            app:layout_constraintStart_toStartOf="@+id/follower"
-            app:layout_constraintTop_toBottomOf="@+id/following"
+            app:layout_constraintEnd_toEndOf="@+id/tv_following"
+            app:layout_constraintStart_toStartOf="@+id/tv_follower"
+            app:layout_constraintTop_toBottomOf="@+id/tv_following"
             app:tabTextColor="@android:color/white" />
 
         <androidx.viewpager2.widget.ViewPager2
@@ -101,7 +103,7 @@
             android:id="@+id/progrerss_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tabs"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

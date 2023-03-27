@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuser.databinding.FragmentFollowBinding
 
@@ -17,12 +16,7 @@ class FollowFragment : Fragment() {
     private var _binding: FragmentFollowBinding? = null
     private val binding get() = _binding!!
 
-    companion object{
-        private const val TAG = "FollowFragment"
-        const val ARG_SECTION_NUMBER = "section_number"
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         _binding = FragmentFollowBinding.inflate(inflater, container, false)
         return binding.root
@@ -67,6 +61,11 @@ class FollowFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object{
+        private const val TAG = "FollowFragment"
+        const val ARG_SECTION_NUMBER = "section_number"
     }
 
 }
