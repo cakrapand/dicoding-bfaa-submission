@@ -14,17 +14,10 @@ data class User(
     val login: String,
 
     @field:SerializedName("avatar_url")
-    val avatar_url: String
+    val avatarUrl: String
     ): Parcelable
 
 data class SearchResponse(
-
-    @field:SerializedName("total_count")
-    val total_count: Long,
-
-    @field:SerializedName("incomplete_results")
-    val incomplete_results: Boolean,
-
     @field:SerializedName("items")
     val items: List<User>
 )

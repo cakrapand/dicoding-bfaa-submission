@@ -14,14 +14,6 @@ class SectionPagerAdapter(activity: AppCompatActivity): FragmentStateAdapter(act
             putInt(FollowFragment.ARG_SECTION_NUMBER, position)
         }
         return fragment
-
-
-//        var fragment: Fragment? = null
-//        when (position) {
-//            0 -> fragment = FollowersFragment()
-//            1 -> fragment = FollowingFragment()
-//        }
-//        return fragment as Fragment
     }
 
     override fun getItemCount(): Int {

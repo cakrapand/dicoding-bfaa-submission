@@ -1,9 +1,7 @@
 package com.example.githubuser
 
-import androidx.viewbinding.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -13,7 +11,7 @@ class ApiConfig {
             val authInterceptor = Interceptor { chain ->
                 val req = chain.request()
                 val requestHeaders = req.newBuilder()
-                    .addHeader("Authorization", "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")
+                    .addHeader("Authorization", BuildConfig.KEY)
                     .build()
                 chain.proceed(requestHeaders)
             }

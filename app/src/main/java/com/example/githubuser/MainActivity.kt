@@ -9,18 +9,15 @@ import android.view.Menu
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuser.databinding.ActivityMainBinding
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val mainViewModel: MainViewModel by viewModels()
 
-    companion object{
-        private const val TAG = "MainActivity"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         binding.listUserMain.layoutManager = layoutManager
 
         mainViewModel.listUsers.observe(this){ listUser ->
+//            if (listUser.isEmpty()) Snackbar.make(binding.root, "Username tidak ditemukan", Snackbar.LENGTH_SHORT).show()
             binding.listUserMain.adapter = UserAdapter(listUser){ user ->
                 val intent = Intent(this@MainActivity, DetailActivity::class.java)
                 intent.putExtra(DetailActivity.EXTRA_USER, user)
@@ -40,6 +38,12 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.isLoading.observe(this){
             showLoading(it)
+        }
+
+        mainViewModel.isError.observe(this){
+            it.getContentIfNotHandled()?.let {
+                if(it) Snackbar.make(binding.root, "Data gagal ditampilkan", Snackbar.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -74,5 +78,9 @@ class MainActivity : AppCompatActivity() {
         }else{
             binding.progrerssBarMain.visibility = View.GONE
         }
+    }
+
+    companion object{
+        private const val TAG = "MainActivity"
     }
 }
