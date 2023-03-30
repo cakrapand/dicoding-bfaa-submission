@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.githubuser.data.UserRepository
 import com.example.githubuser.data.remote.response.User
-import com.example.githubuser.ui.detail.DetailViewModel
 import org.junit.Assert.*
 import org.junit.Before
 

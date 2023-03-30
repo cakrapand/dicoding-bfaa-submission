@@ -69,9 +69,11 @@ class DetailViewModel(private val userRepository: UserRepository) : ViewModel() 
 
     override fun onCleared() {
         super.onCleared()
-        userRepository.getUserDetail(LOGIN).removeObserver(observerUserDetail)
-        userRepository.getUserFollower(LOGIN).removeObserver(observerFollower)
-        userRepository.getUserFollowing(LOGIN).removeObserver(observerFollowing)
+        userRepository.apply {
+            getUserDetail(LOGIN).removeObserver(observerUserDetail)
+            getUserFollower(LOGIN).removeObserver(observerFollower)
+            getUserFollowing(LOGIN).removeObserver(observerFollowing)
+        }
     }
 
     companion object{

@@ -93,7 +93,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_follow"
+            android:id="@+id/fab_favourite"
             style="@style/Theme.Githubuser.Fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
             android:layout_marginBottom="16dp"
             android:contentDescription="@string/share"
             android:src="@drawable/ic_share"
-            app:layout_constraintBottom_toTopOf="@+id/fab_follow"
+            app:layout_constraintBottom_toTopOf="@+id/fab_favourite"
             app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

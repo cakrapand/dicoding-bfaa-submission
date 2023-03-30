@@ -16,7 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 class FavouriteActivity : AppCompatActivity() {
 
     private var _activityFavouriteBinding: ActivityFavouriteBinding? = null
-    private val binding get() = _activityFavouriteBinding
+    private val binding get() = _activityFavouriteBinding!!
 
     private val favouriteViewModel: FavouriteViewModel by viewModels {
         ViewModelFactory.getInstance(application)
@@ -26,23 +26,24 @@ class FavouriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         _activityFavouriteBinding = ActivityFavouriteBinding.inflate(layoutInflater)
-        setContentView(binding?.root)
+        setContentView(binding.root)
 
         supportActionBar?.title = getString(R.string.favourite)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val layoutManager = LinearLayoutManager(this)
-        binding!!.listUserFav.layoutManager = layoutManager
-
         favouriteViewModel.getFavouriteUser().observe(this){
             if(it.isNotEmpty()){
-                binding!!.listUserFav.adapter = UserAdapter(it){ user ->
+                val listFavouriteAdapter = UserAdapter(it){ user ->
                     val intent = Intent(this@FavouriteActivity, DetailActivity::class.java)
                     intent.putExtra(DetailActivity.EXTRA_USER, user)
                     startActivity(intent)
                 }
+                binding.listUserFav.apply {
+                    layoutManager = LinearLayoutManager(this@FavouriteActivity)
+                    adapter = listFavouriteAdapter
+                }
             }else{
-                Snackbar.make(binding!!.root, "Data is empty", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, "Data is empty", Snackbar.LENGTH_SHORT).show()
             }
         }
     }

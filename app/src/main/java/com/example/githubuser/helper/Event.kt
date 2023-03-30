@@ -1,5 +1,7 @@
 package com.example.githubuser.helper
 
+import android.util.Log
+
 open class Event<out T>(private val content: T) {
 
     @Suppress("MemberVisibilityCanBePrivate")
@@ -10,6 +12,7 @@ open class Event<out T>(private val content: T) {
         return if (hasBeenHandled) {
             null
         } else {
+            Log.i("TEST", "getContentIfNotHandled: TRUE")
             hasBeenHandled = true
             content
         }

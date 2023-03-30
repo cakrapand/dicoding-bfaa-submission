@@ -32,12 +32,7 @@ class FollowFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val index = arguments?.getInt(ARG_SECTION_NUMBER, 0)
-
-        val layoutManager = LinearLayoutManager(requireActivity())
-        binding.listUsers.layoutManager = layoutManager
-
-        when (index) {
+        when (arguments?.getInt(ARG_SECTION_NUMBER, 0)) {
             0 -> detailViewModel.listFollower.observe(requireActivity()) {setAdapter(it)}
             1 -> detailViewModel.listFollowing.observe(requireActivity()) {setAdapter(it)}
         }
@@ -54,10 +49,14 @@ class FollowFragment : Fragment() {
 
                 is UserResult.Success -> {
                     binding.progrerssBar.visibility = View.GONE
-                    binding.listUsers.adapter = UserAdapter(userResult.data) { user ->
+                    val listFollowAdapter = UserAdapter(userResult.data) { user ->
                         val intent = Intent(requireActivity(), DetailActivity::class.java)
                         intent.putExtra(DetailActivity.EXTRA_USER, user)
                         startActivity(intent)
+                    }
+                    binding.listUsers.apply {
+                        layoutManager = LinearLayoutManager(requireActivity())
+                        adapter = listFollowAdapter
                     }
                 }
 

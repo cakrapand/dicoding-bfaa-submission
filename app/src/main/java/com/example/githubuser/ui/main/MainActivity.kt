@@ -24,7 +24,7 @@ import com.google.android.material.snackbar.Snackbar
 class MainActivity : AppCompatActivity() {
 
     private var _activityMainBinding: ActivityMainBinding? = null
-    private val binding get() = _activityMainBinding
+    private val binding get() = _activityMainBinding!!
 
     private val mainViewModel: MainViewModel by viewModels {
         ViewModelFactory.getInstance(application)
@@ -34,41 +34,38 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         _activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding?.root)
-
-        val layoutManager = LinearLayoutManager(this)
-        binding?.listUserMain?.layoutManager = layoutManager
+        setContentView(binding.root)
 
         mainViewModel.userResult.observe(this){ userResult ->
             if(userResult != null){
                 when(userResult){
                     is UserResult.Loading -> {
-                        binding?.progrerssBarMain?.visibility = View.VISIBLE
+                        binding.progrerssBarMain.visibility = View.VISIBLE
                     }
 
                     is UserResult.Success -> {
-                        binding?.progrerssBarMain?.visibility = View.GONE
-                        binding?.listUserMain?.adapter = UserAdapter(userResult.data){ user ->
+                        binding.progrerssBarMain.visibility = View.GONE
+                        val listUserAdapter = UserAdapter(userResult.data) { user ->
                             val intent = Intent(this@MainActivity, DetailActivity::class.java)
                             intent.putExtra(DetailActivity.EXTRA_USER, user)
                             startActivity(intent)
                         }
-                        if(userResult.data.isEmpty()) Snackbar.make(binding!!.root, "Data not found", Snackbar.LENGTH_SHORT).show()
+                        binding.listUserMain.apply {
+                            layoutManager = LinearLayoutManager(this@MainActivity)
+                            adapter = listUserAdapter
+                        }
+                        if(userResult.data.isEmpty()) Snackbar.make(binding.root, "Data not found", Snackbar.LENGTH_SHORT).show()
                     }
 
                     is UserResult.Error -> {
-                        binding?.progrerssBarMain?.visibility = View.GONE
-                        Snackbar.make(binding!!.root, "Error getting data: ${userResult.error}", Snackbar.LENGTH_SHORT).show()
+                        binding.progrerssBarMain.visibility = View.GONE
+                        userResult.error?.getContentIfNotHandled().let {
+                            if(!it.isNullOrEmpty()) Snackbar.make(binding.root, "Error getting data: $it", Snackbar.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
         }
-
-//        mainViewModel.isError.observe(this){
-//            it.getContentIfNotHandled()?.let {
-//                if(it) Snackbar.make(binding?.root, "Data gagal ditampilkan", Snackbar.LENGTH_SHORT).show()
-//            }
-//        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
