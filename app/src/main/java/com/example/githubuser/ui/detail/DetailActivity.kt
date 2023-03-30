@@ -97,7 +97,7 @@ class DetailActivity : AppCompatActivity() {
                         binding!!.fabShare.setOnClickListener {
                             val intent = Intent(Intent.ACTION_SEND)
                             intent.type = "text/plain"
-                            intent.putExtra(Intent.EXTRA_TEXT, "Check out ${userResult.data.login} GitHub: ${userResult.data.url}")
+                            intent.putExtra(Intent.EXTRA_TEXT, "Check out ${userResult.data.login}'s GitHub: ${userResult.data.url}")
                             startActivity(intent)
                         }
                     }

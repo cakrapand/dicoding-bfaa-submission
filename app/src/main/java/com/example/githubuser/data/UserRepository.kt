@@ -24,7 +24,6 @@ class UserRepository private constructor(private val apiService: ApiService, pri
     fun searchUser(query: String): LiveData<UserResult<List<User>>> = liveData {
         emit(UserResult.Loading)
         try{
-            Log.i("TEST", "REPO searchUser: $query")
             val response = apiService.searchUsers(query)
             val listUser = response.items
             emit(UserResult.Success(listUser))
