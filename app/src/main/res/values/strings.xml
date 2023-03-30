@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">GithubUser</string>
     <string name="search">Search</string>
+    <string name="favourite">Favourite</string>
+    <string name="share">Share</string>
+    <string name="setting">Setting</string>
+    <string name="dark_mode">Dark Mode</string>
     <string name="search_hint">Masukan username</string>
     <string name="followers">%1$s Followers</string>
     <string name="following">%1$s Following</string>

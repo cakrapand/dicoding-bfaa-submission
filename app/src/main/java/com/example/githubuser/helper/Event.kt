@@ -1,6 +1,4 @@
-package com.example.githubuser
-
-import android.util.Log
+package com.example.githubuser.helper
 
 open class Event<out T>(private val content: T) {
 

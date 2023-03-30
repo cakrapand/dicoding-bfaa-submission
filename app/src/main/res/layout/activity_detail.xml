@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
     android:orientation="vertical"
-    tools:context=".FollowFragment">
+    tools:context=".ui.detail.FollowFragment">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_avatar"
@@ -15,7 +14,8 @@
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/tv_username"
@@ -42,7 +42,7 @@
 
         <TextView
             android:id="@+id/tv_following"
-            android:layout_width="88dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,30 +51,13 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_nama"
             tools:text="100 Following" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/follower"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="@string/follower"-->
-        <!--            app:layout_constraintEnd_toEndOf="@+id/tv_follower"-->
-        <!--            app:layout_constraintStart_toStartOf="@+id/tv_follower"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/tv_follower" />-->
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/following"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="@string/following"-->
-        <!--            app:layout_constraintEnd_toEndOf="@+id/tv_following"-->
-        <!--            app:layout_constraintStart_toStartOf="@+id/tv_following"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/tv_following" />-->
-
         <TextView
             android:id="@+id/tv_follower"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toStartOf="@+id/tv_following"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_nama"
             tools:text="100 Follower" />
@@ -85,8 +68,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="?attr/colorPrimary"
-            app:layout_constraintEnd_toEndOf="@+id/tv_following"
-            app:layout_constraintStart_toStartOf="@+id/tv_follower"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_following"
             app:tabTextColor="@android:color/white" />
 
@@ -107,5 +91,29 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_follow"
+            style="@style/Theme.Githubuser.Fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/favourite"
+            android:src="@drawable/ic_favorite_border"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_share"
+            style="@style/Theme.Githubuser.Fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/share"
+            android:src="@drawable/ic_share"
+            app:layout_constraintBottom_toTopOf="@+id/fab_follow"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
