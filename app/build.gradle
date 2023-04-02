@@ -18,7 +18,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "KEY", '"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"')
+        buildConfigField("String", "KEY", '"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"')
     }
 
     buildTypes {
@@ -75,6 +75,7 @@ dependencies {
 
     androidTestImplementation 'androidx.test:runner:1.5.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.5.1'
     androidTestImplementation 'androidx.test:rules:1.5.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
 }

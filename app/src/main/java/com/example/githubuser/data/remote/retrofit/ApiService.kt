@@ -10,9 +10,6 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-//    @GET("search/users")
-//    fun searchUsers(@Query("q") login: String): Call<SearchResponse>
-
     @GET("search/users")
     suspend fun searchUsers(@Query("q") login: String): SearchResponse
 

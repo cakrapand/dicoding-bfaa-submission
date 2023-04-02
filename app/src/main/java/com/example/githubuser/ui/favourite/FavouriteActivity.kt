@@ -28,23 +28,20 @@ class FavouriteActivity : AppCompatActivity() {
         _activityFavouriteBinding = ActivityFavouriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.title = getString(R.string.favourite)
+        supportActionBar?.title = getString(R.string.favorite)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         favouriteViewModel.getFavouriteUser().observe(this){
-            if(it.isNotEmpty()){
-                val listFavouriteAdapter = UserAdapter(it){ user ->
-                    val intent = Intent(this@FavouriteActivity, DetailActivity::class.java)
-                    intent.putExtra(DetailActivity.EXTRA_USER, user)
-                    startActivity(intent)
-                }
-                binding.listUserFav.apply {
-                    layoutManager = LinearLayoutManager(this@FavouriteActivity)
-                    adapter = listFavouriteAdapter
-                }
-            }else{
-                Snackbar.make(binding.root, "Data is empty", Snackbar.LENGTH_SHORT).show()
+            val listFavouriteAdapter = UserAdapter(it){ user ->
+                val intent = Intent(this@FavouriteActivity, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.EXTRA_USER, user)
+                startActivity(intent)
             }
+            binding.listUserFav.apply {
+                layoutManager = LinearLayoutManager(this@FavouriteActivity)
+                adapter = listFavouriteAdapter
+            }
+            if(it.isEmpty())Snackbar.make(binding.root, "Data is empty", Snackbar.LENGTH_SHORT).show()
         }
     }
 

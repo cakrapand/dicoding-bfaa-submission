@@ -16,7 +16,7 @@ class UserAdapter(private val listUser: List<User>, private val onClick: (User) 
     )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.tvUsername.text = listUser[holder.adapterPosition].login
+        holder.binding.tvUsernameItem.text = listUser[holder.adapterPosition].login
         Glide.with(holder.itemView)
             .load(listUser[holder.adapterPosition].avatarUrl)
             .into(holder.binding.imgItemPhoto)

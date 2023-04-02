@@ -55,13 +55,13 @@ class DetailActivity : AppCompatActivity() {
                     binding.fabFavourite.setImageResource(R.drawable.ic_favorite_border)
                     binding.fabFavourite.setOnClickListener {
                         detailViewModel.addFavouriteUser(user)
-                        Snackbar.make(binding.root, "${user.login} added to favourite", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(binding.root, "${user.login} added to favorite", Snackbar.LENGTH_SHORT).show()
                     }
                 }else{
                     binding.fabFavourite.setImageResource(R.drawable.ic_favorite_full)
                     binding.fabFavourite.setOnClickListener {
                         detailViewModel.deleteFavouriteUser(user.login)
-                        Snackbar.make(binding.root, "${user.login} deleted from favourite", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(binding.root, "${user.login} deleted from favorite", Snackbar.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -105,7 +105,7 @@ class DetailActivity : AppCompatActivity() {
                             if(!it.isNullOrEmpty()) Snackbar.make(binding.root, "Error getting data: $it", Snackbar.LENGTH_SHORT).show()
                         }
                         binding.fabShare.setOnClickListener {
-                            Snackbar.make(binding.root, "Error getting data: ${userResult.error}", Snackbar.LENGTH_SHORT).show()
+                            Snackbar.make(binding.root, "Error getting data: ${userResult.error?.peekContent()}", Snackbar.LENGTH_SHORT).show()
                         }
                     }
 
